@@ -1,20 +1,21 @@
+filter:
+  excluded_paths:
+    - 'tests/*'
+checks:
+  php: true
+
 build:
   image: default-jammy
   environment:
     php: 8.2.15
   nodes:
-    coverage:
-      tests:
-        override:
-          - command: 'composer install && vendor/bin/phpunit'
-            coverage:
-              file: 'build/coverage.clover.'
-              format: 'clover'
     analysis:
       tests:
         override:
-          # Add the respective Scrutinizer analysis for your language like
           - php-scrutinizer-run
-
-filter:
-  excluded_paths: [tests/*]
+          - command: phpcs-run
+            use_website_config: true
+          - command: ./vendor/bin/phpunit
+            coverage:
+              file: coverage.clover
+              format: clover

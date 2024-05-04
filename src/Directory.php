@@ -16,14 +16,14 @@ namespace Slick\FsWatch;
  *
  * @package Slick\FsWatch
  */
-final readonly class Directory
+final class Directory
 {
     /**
      * Creates a Directory
      *
      * @param string $path
      */
-    public function __construct(private string $path)
+    public function __construct(private readonly string $path)
     {
 
     }
