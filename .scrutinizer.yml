@@ -1,9 +1,7 @@
 build:
   image: default-jammy
   environment:
-    apt_packages:
-        - bzip2
-    php: 8.2.16
+    php: 8.2.15
   nodes:
     analysis:
       tests:
