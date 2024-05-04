@@ -32,4 +32,4 @@ jobs:
       - name: "Update coverage"
         run: |
           wget https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --access-token="245c165cc100336558073ac6712ad49b077cd08814a371e22a55f8dc470736a9" --format=php-clover build/clover.xml
+          php ocular.phar code-coverage:upload --repository=slickframework/fswatch  --format=php-clover build/coverage.clover
