@@ -2,10 +2,12 @@
 
 [![Latest Version](https://img.shields.io/github/release/slickframework/fswatch.svg?style=flat-square)](https://github.com/slickframework/fswatch/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/slickframework/fswatch/continuous-integration.yml?style=flat-square)](https://github.com/slickframework/fswatch/actions/workflows/continuous-integration.yml)
-[![Quality Score](https://img.shields.io/scrutinizer/g/slickframework/fswatch/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/slickframework/fswatch?branch=master)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/slickframework/fswatch/main.yaml?style=flat-square)](https://github.com/slickframework/fswatch/actions/workflows/main.yaml)
+[![Quality Score](https://img.shields.io/scrutinizer/g/slickframework/fswatch/main.svg?style=flat-square)](https://scrutinizer-ci.com/g/slickframework/fswatch?branch=main)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg?style=flat-square)](CONDUCT.md)
 [![Total Downloads](https://img.shields.io/packagist/dt/slick/fswatch.svg?style=flat-square)](https://packagist.org/packages/slick/fswatch)
+
+https://github.com/slickframework/fswatch/actions/workflows/main.yaml
 
 ``slick/fswatch`` is a simple library that sums the total size of all files in a given directory allowing you to verify if its contents have changed.
 
