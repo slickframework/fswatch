@@ -17,6 +17,9 @@ checks:
         fix_identation_4spaces: true
         fix_doc_comments: true
 build:
+    image: default-bionic
+    environment:
+        php: 8.2.16
     nodes:
         coverage:
             tests:
