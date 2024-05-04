@@ -1,0 +1,53 @@
+{
+    "name": "slick/fswatch",
+    "description": "is a simple library that sums the total size of all files in a given directory allowing you to verify if its contents have changed.",
+    "type": "library",
+    "version": "v0.1.0",
+    "keywords": [
+        "slick",
+        "file sistem",
+        "changes",
+        "watch changes"
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "11.2.x-dev",
+        "phpmd/phpmd": "dev-master",
+        "phpstan/phpstan": "2.0.x-dev",
+        "squizlabs/php_codesniffer": "4.0.x-dev"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Slick\\FsWatch\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "UnitTests\\Slick\\FsWatch\\": "tests/Unit"
+        }
+    },
+    "authors": [
+        {
+            "name": "Filipe Silva",
+            "email": "silvam.filipe@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.2"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.1-dev",
+            "dev-develop": "1.x-dev"
+        }
+    }
+}

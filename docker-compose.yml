@@ -1,0 +1,10 @@
+services:
+  php:
+    image: fsilva/php:8.2-cli
+    volumes:
+      - ./:/usr/src/app
+    working_dir: /usr/src/app
+    environment:
+      - USE_XDEBUG=yes
+      - ENABLE_OPCACHE=no
+      - XDEBUG_MODE=develop,debug,coverage
