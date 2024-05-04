@@ -3,6 +3,13 @@ build:
   environment:
     php: 8.2.15
   nodes:
+    coverage:
+      tests:
+        override:
+          - command: 'composer install && vendor/bin/phpunit'
+            coverage:
+              file: 'build/coverage.clover.'
+              format: 'clover'
     analysis:
       tests:
         override:
