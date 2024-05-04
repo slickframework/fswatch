@@ -8,6 +8,8 @@ build:
   image: default-jammy
   environment:
     php: 8.2.15
+    variables:
+      XDEBUG_MODE: coverage
   nodes:
     analysis:
       tests:
