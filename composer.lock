@@ -454,12 +454,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpmd/phpmd.git",
-                "reference": "6b102787c069466af6a2f70af7ff3d11bcddca04"
+                "reference": "1a3497fcfeb499998601f89d1af146be89cad5e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpmd/phpmd/zipball/6b102787c069466af6a2f70af7ff3d11bcddca04",
-                "reference": "6b102787c069466af6a2f70af7ff3d11bcddca04",
+                "url": "https://api.github.com/repos/phpmd/phpmd/zipball/1a3497fcfeb499998601f89d1af146be89cad5e0",
+                "reference": "1a3497fcfeb499998601f89d1af146be89cad5e0",
                 "shasum": ""
             },
             "require": {
@@ -530,7 +530,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-03T19:58:15+00:00"
+            "time": "2024-05-04T15:36:31+00:00"
         },
         {
             "name": "phpstan/phpstan",

@@ -1,6 +1,6 @@
 {
     "name": "slick/fswatch",
-    "description": "is a simple library that sums the total size of all files in a given directory allowing you to verify if its contents have changed.",
+    "description": "slick/fswatch is a simple library that sums the total size of all files in a given directory allowing you to verify if its contents have changed.",
     "type": "library",
     "version": "v0.1.0",
     "keywords": [

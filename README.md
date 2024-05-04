@@ -7,7 +7,6 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg?style=flat-square)](CONDUCT.md)
 [![Total Downloads](https://img.shields.io/packagist/dt/slick/fswatch.svg?style=flat-square)](https://packagist.org/packages/slick/fswatch)
 
-https://github.com/slickframework/fswatch/actions/workflows/main.yaml
 
 ``slick/fswatch`` is a simple library that sums the total size of all files in a given directory allowing you to verify if its contents have changed.
 
