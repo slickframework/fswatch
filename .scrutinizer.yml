@@ -21,10 +21,10 @@ build:
         coverage:
             tests:
                 override:
-                - command: vendor/bin/phpunit
-            coverage:
-                file: build/clover.xml
+                    - command: vendor/bin/phpunit
+                coverage:
+                    file: build/clover.xml
 
-                # These formats are supported:
-                # clover, cobertura, jacoco, python-cc, ruby-cc, go-cc, lcov
-                format: clover
+                    # These formats are supported:
+                    # clover, cobertura, jacoco, python-cc, ruby-cc, go-cc, lcov
+                    format: clover

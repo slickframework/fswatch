@@ -24,12 +24,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
 
       - name: Installing Composer
-        run: composer update ${{ env.COMPOSER_FLAGS }}
+        run: composer install ${{ env.COMPOSER_FLAGS }}
 
       - name: "Run tests"
         run: "vendor/bin/phpunit"
-
-      - name: "Update coverage"
-        run: |
-          wget https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --repository=slickframework/fswatch  --format=php-clover build/coverage.clover
