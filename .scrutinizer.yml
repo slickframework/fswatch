@@ -17,5 +17,5 @@ build:
           - php-scrutinizer-run
           - command: php -d debug.mode=coverage ./vendor/bin/phpunit
             coverage:
-              file: coverage.clover
+              file: build/coverage.clover
               format: clover
