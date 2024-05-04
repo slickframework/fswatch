@@ -1,9 +1,9 @@
 build:
   image: default-jammy
-  dependencies:
-    before:
-      - sudo apt-get install bzip2
   environment:
+    dependencies:
+      before:
+        - sudo apt-get install bzip2
     php: 8.2.16
   nodes:
     analysis:
