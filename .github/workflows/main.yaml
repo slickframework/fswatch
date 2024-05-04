@@ -1,0 +1,35 @@
+name: Integration Workflow
+
+on:
+  - push
+  - pull_request
+
+env:
+  COMPOSER_FLAGS: "--ansi --no-interaction --no-progress --prefer-dist"
+
+jobs:
+  build:
+    name: Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['8.2', '8.3']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Setting up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+
+      - name: Installing Composer
+        run: composer update ${{ env.COMPOSER_FLAGS }}
+
+      - name: "Run tests"
+        run: "vendor/bin/phpunit"
+
+      - name: "Update coverage"
+        run: |
+          wget https://scrutinizer-ci.com/ocular.phar
+          php ocular.phar code-coverage:upload --access-token="245c165cc100336558073ac6712ad49b077cd08814a371e22a55f8dc470736a9" --format=php-clover build/clover.xml
