@@ -1,12 +1,12 @@
 build:
   image: default-jammy
+  dependencies:
+    before:
+      - sudo apt-get install bzip2
   environment:
     php: 8.2.16
   nodes:
     analysis:
-      dependencies:
-        before:
-          - sudo apt-get install bzip2
       tests:
         override:
           # Add the respective Scrutinizer analysis for your language like
