@@ -11,6 +11,8 @@ namespace UnitTests\Slick\FsWatch;
 use PHPUnit\Framework\Attributes\Test;
 use Slick\FsWatch\Directory;
 use PHPUnit\Framework\TestCase;
+use Slick\FsWatch\Exception\DirectoryNotAccecible;
+use Slick\FsWatch\Exception\DirectoryNotFound;
 
 class DirectoryTest extends TestCase
 {
@@ -29,4 +31,48 @@ class DirectoryTest extends TestCase
         $dir = new Directory($path);
         $this->assertEquals($path, $dir->path());
     }
+
+    #[Test]
+    public function throwsNotFoundException()
+    {
+        $this->expectException(DirectoryNotFound::class);
+        $dir = new Directory('/nonexistent/path');
+    }
+
+    #[Test]
+    public function throwsNotAccecibleException()
+    {
+        $path = '/root';
+        if (!is_dir($path)) {
+            $this->markTestSkipped("/root directory does not exist");
+        }
+        $this->expectException(DirectoryNotAccecible::class);
+        $dir = new Directory($path);
+    }
+
+    #[Test]
+    public function normalizePathName()
+    {
+        $path = dirname(__DIR__) . "\\fixtures\\";
+        $dir = new Directory($path);
+        $this->assertEquals(dirname(__DIR__).'/fixtures', $dir->path());
+    }
+
+    #[Test]
+    function directoryMap()
+    {
+        $file1 = dirname(__DIR__) . '/fixtures/test.txt';
+        $file2 = dirname(__DIR__) . '/fixtures/other/other-test.txt';
+        $size1 = intval(sprintf('%u', filesize($file1)));
+        $size2 = intval(sprintf('%u', filesize($file2)));
+        $dir = new Directory(dirname(__DIR__) . '/fixtures');
+
+        $this->assertEquals([
+            'test.txt' => $size1,
+            'other' => [
+                'other-test.txt' => $size2
+            ]
+        ], $dir->sizeMap());
+    }
+
 }
