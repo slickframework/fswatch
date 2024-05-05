@@ -20,9 +20,14 @@ use Traversable;
  * Changes
  *
  * @package Slick\FsWatch\Directory
+ * @implements IteratorAggregate<string, FileChange>
+ * @implements ArrayAccess<string, FileChange>
  */
 final class Changes implements IteratorAggregate, ArrayAccess
 {
+    /**
+     * @var array<string, FileChange>|FileChange[]
+     */
     private array $changes = [];
 
     /**
@@ -51,7 +56,7 @@ final class Changes implements IteratorAggregate, ArrayAccess
 
     public function offsetSet(mixed $offset, mixed $value): void
     {
-        $this->add($offset, $value);
+        $this->add((string) $offset, $value);
     }
 
     public function offsetUnset(mixed $offset): void

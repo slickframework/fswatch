@@ -73,11 +73,7 @@ class Directory
         $result = [];
         $path = $this->fileTools->normalizePath($path);
         $files = scandir($path);
-        if ($files === false) {
-            return $result;
-        }
-
-        $files = array_diff($files, ['.', '..']);
+        $files = $files !== false ? array_diff($files, ['.', '..']) : [];
 
         foreach ($files as $file) {
             if (is_dir($path . $file) === true) {

@@ -26,5 +26,18 @@ class ChangesTest extends TestCase
         $this->assertSame($changes, $return);
         $this->assertCount(1, $changes);
         $this->assertSame($changes[$key], $fileChange);
+        $this->assertArrayHasKey($key, $changes);
+    }
+
+    #[Test]
+    public function canBeUsedAsArray()
+    {
+        $changes = new Changes();
+        $key = '/some/file';
+        $fileChange = FileChange::ADDED;
+        $changes[$key] = $fileChange;
+        $this->assertSame($changes[$key], $fileChange);
+        unset($changes[$key]);
+        $this->assertArrayNotHasKey($key, $changes);
     }
 }

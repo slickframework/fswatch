@@ -21,11 +21,17 @@ use Slick\FsWatch\FileTools;
  */
 final class Snapshot
 {
+    /** @var array<string, mixed> */
     protected array $sizeMap;
     private string $path;
 
     private FileTools $fileTools;
 
+    /**
+     * Creates a Snapshot
+     *
+     * @param Directory $directory
+     */
     public function __construct(Directory $directory)
     {
         $this->sizeMap = $directory->sizeMap();
@@ -33,16 +39,29 @@ final class Snapshot
         $this->fileTools = new FileTools();
     }
 
+    /**
+     * Directory content size hash
+     *
+     * @return string
+     */
     public function hash(): string
     {
         return sha1(serialize($this->sizeMap));
     }
 
+    /**
+     * Directory path
+     *
+     * @return string
+     */
     public function path(): string
     {
         return $this->path;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function __serialize(): array
     {
         return [
@@ -51,6 +70,10 @@ final class Snapshot
         ];
     }
 
+    /**
+     * @param array<string, mixed> $data
+     * @return void
+     */
     public function __unserialize(array $data): void
     {
         $this->path = $data['path'];
@@ -58,6 +81,12 @@ final class Snapshot
         $this->fileTools = new FileTools();
     }
 
+    /**
+     * Compares the current Snapshot with another Snapshot and determines the changes that occurred.
+     *
+     * @param Snapshot $secondSnapshot The second Snapshot to compare with.
+     * @return Changes The changes that occurred between the two Snapshots.
+     */
     public function compareTo(Snapshot $secondSnapshot): Changes
     {
         $changes = new Changes();

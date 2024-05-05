@@ -46,10 +46,7 @@ final class FileTools
 
         if (is_dir($path)) {
             $scannedFiles = scandir($path);
-            if ($scannedFiles === false) {
-                return $result;
-            }
-            $files = array_diff($scannedFiles, ['.', '..']);
+            $files =$scannedFiles !== false ? array_diff($scannedFiles, ['.', '..']) : [];
             foreach ($files as $file) {
                 if (is_dir($path . $file)) {
                     $result += $this->calculateSize($path . $file);
