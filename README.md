@@ -26,17 +26,23 @@ First you need to create a directory snapshot to be able to compare it with any 
 later on:
 ```php
 use Slick\FsWatch\Directory;
-use Slick\FsWatch\Directory\Snapshot;
 
 $dir = new Directory('/path/to/directory');
 // can be stored in any cache or temporary memory to be checked later
-$snapshot = new Snapshot($dir); 
+$snapshot = $dir->snapshot();
+file_put_contents('/some/cache/file', serialize($snapshot)); 
 
 ```
 
 Now you can verify if directory contents have changed:
 ```php
+use Slick\FsWatch\Directory;
+
+$dir = new Directory('/path/to/directory');
+$snapshot = unserialize(file_get_contents('/some/cache/file'))
+
 if ($dir->hasChanged($snapshot)) { //directory contents have changed
+    $changes = $dir->snapshot()->compareTo($snapshot);
     // do your logic
 }
 ```
