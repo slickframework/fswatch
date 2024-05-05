@@ -66,4 +66,41 @@ final class FileTools
 
         return $result;
     }
+
+    /**
+     * Flattens a size map recursively into a one-dimensional array.
+     *
+     * @param array<string, mixed> $map The size map to flatten.
+     * @param string $glue The separator to use between the keys in the flattened array. Default is '/'.
+     *
+     * @return array<string, int> The flattened size map.
+     */
+    public function flattenSizeMap(array $map, string $glue = '/'): array
+    {
+        $flattened = [];
+        $this->flattenMap('', $map, $flattened, $glue);
+        return $flattened;
+    }
+
+    /**
+     * Recursively flattens a map into a one-dimensional array.
+     *
+     * @param string $path The current path in the map.
+     * @param array<string, mixed> $map The map to flatten.
+     * @param array<string, mixed> &$flattened The flattened map.
+     * @param string $glue The separator to use between the keys in the flattened array.
+     *
+     * @return void
+     */
+    private function flattenMap(string $path, array $map, array &$flattened, string $glue): void
+    {
+        foreach ($map as $key => $value) {
+            $newKey = ltrim($path.$glue.$key, '/');
+            if (is_array($value)) {
+                $this->flattenMap($newKey, $value, $flattened, $glue);
+                continue;
+            }
+            $flattened[$newKey] = $value;
+        }
+    }
 }

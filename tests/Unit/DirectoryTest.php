@@ -11,6 +11,7 @@ namespace UnitTests\Slick\FsWatch;
 use PHPUnit\Framework\Attributes\Test;
 use Slick\FsWatch\Directory;
 use PHPUnit\Framework\TestCase;
+use Slick\FsWatch\Directory\Snapshot;
 use Slick\FsWatch\Exception\DirectoryNotAccecible;
 use Slick\FsWatch\Exception\DirectoryNotFound;
 
@@ -74,5 +75,42 @@ class DirectoryTest extends TestCase
             ]
         ], $dir->sizeMap());
     }
+
+    #[Test]
+    public function hasASnapshot()
+    {
+        $dir = new Directory(dirname(__DIR__) . '/fixtures');
+        $this->assertInstanceOf(Snapshot::class, $dir->snapshot());
+        print_r($dir->snapshot()->__serialize());
+    }
+
+    #[Test]
+    public function checkChanges()
+    {
+        $path = dirname(__DIR__) . '/fixtures';
+        $dir = new Directory($path);
+        $data = serialize($dir->snapshot());
+        file_put_contents($path.'/snapshot.txt', 'test');
+        $dir = new Directory($path);
+        $this->assertTrue($dir->hasChanged(unserialize($data)));
+    }
+
+    #[Test]
+    public function noChangesCase()
+    {
+        $path = dirname(__DIR__) . '/fixtures';
+        $dir = new Directory($path);
+        $data = serialize($dir->snapshot());
+        $dir = new Directory($path);
+        $this->assertFalse($dir->hasChanged(unserialize($data)));
+    }
+
+    protected function tearDown(): void
+    {
+        if (is_file(dirname(__DIR__) . '/fixtures/snapshot.txt')) {
+            unlink(dirname(__DIR__) . '/fixtures/snapshot.txt');
+        }
+    }
+
 
 }

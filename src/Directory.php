@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Slick\FsWatch;
 
+use Slick\FsWatch\Directory\Snapshot;
 use Slick\FsWatch\Exception\DirectoryNotAccecible;
 use Slick\FsWatch\Exception\DirectoryNotFound;
 
@@ -19,7 +20,7 @@ use Slick\FsWatch\Exception\DirectoryNotFound;
  *
  * @package Slick\FsWatch
  */
-final class Directory
+class Directory
 {
     private FileTools $fileTools;
     /**
@@ -87,5 +88,15 @@ final class Directory
         }
 
         return $result;
+    }
+
+    public function snapshot(): Snapshot
+    {
+        return new Snapshot($this);
+    }
+
+    public function hasChanged(Snapshot $snapshot): bool
+    {
+        return $this->snapshot()->hash() !== $snapshot->hash();
     }
 }
