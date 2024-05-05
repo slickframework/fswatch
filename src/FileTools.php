@@ -16,7 +16,7 @@ namespace Slick\FsWatch;
  *
  * @package Slick\FsWatch
  */
-abstract class FileTools
+final class FileTools
 {
 
     /**
@@ -26,10 +26,10 @@ abstract class FileTools
      * @param string $path The file path to normalize.
      * @return string The normalized file path.
      */
-    public static function normalizePath(string $path): string
+    public function normalizePath(string $path): string
     {
         $path = rtrim(str_replace('\\', '/', $path), '/');
-        $path = preg_replace('/\w:\//i', '/', $path);
+        $path = (string) preg_replace('/\w:\//i', '/', $path);
         return is_dir($path) === true ? $path.'/' : $path;
     }
 
@@ -39,20 +39,29 @@ abstract class FileTools
      * @param string $path The path of the directory or file.
      * @return int The total size in bytes.
      */
-    public static function calculateSize(string $path): int
+    public function calculateSize(string $path): int
     {
         $result = 0;
-        $path = self::normalizePath($path);
+        $path = $this->normalizePath($path);
 
         if (is_dir($path)) {
-            $files = array_diff(scandir($path), ['.', '..']);
+            $scannedFiles = scandir($path);
+            if ($scannedFiles === false) {
+                return $result;
+            }
+            $files = array_diff($scannedFiles, ['.', '..']);
             foreach ($files as $file) {
                 if (is_dir($path . $file)) {
-                    $result += self::calculateSize($path . $file);
+                    $result += $this->calculateSize($path . $file);
                     continue;
                 }
                 $result += intval(sprintf('%u', filesize($path . $file)));
             }
+            return $result;
+        }
+
+        if (is_file($path)) {
+            $result += intval(sprintf('%u', filesize($path)));
         }
 
         return $result;

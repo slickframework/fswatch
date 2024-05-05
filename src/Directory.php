@@ -21,15 +21,17 @@ use Slick\FsWatch\Exception\DirectoryNotFound;
  */
 final class Directory
 {
+    private FileTools $fileTools;
     /**
      * Creates a Directory
      *
      * @param string $path
-     * @throws FsWatchException When directory is not accessible
+     * @throws DirectoryNotFound|DirectoryNotAccecible When directory is not accessible
      */
     public function __construct(private string $path)
     {
-        $this->path = FileTools::normalizePath($this->path);
+        $this->fileTools = new FileTools();
+        $this->path = $this->fileTools->normalizePath($this->path);
         if (!is_dir($this->path)) {
             throw new DirectoryNotFound("Directory $this->path does not exist.");
         }
@@ -49,23 +51,39 @@ final class Directory
         return rtrim($this->path, '/');
     }
 
+    /**
+     * Creates a size map of all directories and files within the specified directory.
+     *
+     * @return array<string, mixed> Array containing the size information of directories and files
+     */
     public function sizeMap(): array
     {
         return $this->map($this->path);
     }
 
+    /**
+     * Recursively maps a directory and its content sizes.
+     *
+     * @param string $path The path to the directory.
+     * @return array<string, mixed> The mapped directory with its contents.
+     */
     private function map(string $path): array
     {
         $result = [];
-        $path = FileTools::normalizePath($this->path);
-        $files = array_diff(scandir($path), ['.', '..']);
+        $path = $this->fileTools->normalizePath($path);
+        $files = scandir($path);
+        if ($files === false) {
+            return $result;
+        }
+
+        $files = array_diff($files, ['.', '..']);
 
         foreach ($files as $file) {
             if (is_dir($path . $file) === true) {
                 $result[$file] = $this->map($path . $file);
                 continue;
             }
-            $result[$file] = FileTools::calculateSize($path . $file);
+            $result[$file] = $this->fileTools->calculateSize($path . $file);
         }
 
         return $result;

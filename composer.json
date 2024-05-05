@@ -49,5 +49,11 @@
             "dev-main": "0.1-dev",
             "dev-develop": "1.x-dev"
         }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs --report=full -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src",
+        "check-code": "phpmd --ignore-errors-on-exit src html build/phpmd.xml > build/phpmd.html && phpstan analyze"
     }
 }

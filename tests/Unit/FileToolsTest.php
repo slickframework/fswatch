@@ -18,25 +18,28 @@ class FileToolsTest extends TestCase
     #[Test]
     public function directorySuffix()
     {
+        $tools = new FileTools();
         $path = dirname(__DIR__) . '/fixtures';
-        $this->assertEquals($path . '/', FileTools::normalizePath($path));
+        $this->assertEquals($path . '/', $tools->normalizePath($path));
     }
 
     #[Test]
     public function widowsPath()
     {
-        $this->assertEquals('/example/test', FileTools::normalizePath('c:\\example\\test'));
+        $tools = new FileTools();
+        $this->assertEquals('/example/test', $tools->normalizePath('c:\\example\\test'));
     }
 
     #[Test]
     public function calculatesSize()
     {
+        $tools = new FileTools();
         $file1 = dirname(__DIR__) . '/fixtures/test.txt';
         $file2 = dirname(__DIR__) . '/fixtures/other/other-test.txt';
         $size = intval(sprintf('%u', filesize($file1)));
         $size += intval(sprintf('%u', filesize($file2)));
 
-        $this->assertEquals($size, FileTools::calculateSize(dirname(__DIR__) . '/fixtures'));
+        $this->assertEquals($size, $tools->calculateSize(dirname(__DIR__) . '/fixtures'));
 
     }
 }
