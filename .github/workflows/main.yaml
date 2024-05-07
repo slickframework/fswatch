@@ -28,3 +28,9 @@ jobs:
 
       - name: "Run tests"
         run: "vendor/bin/phpunit"
+
+      - name: "Run mess detection"
+        run: "vendor/bin/phpmd src text build/phpmd.xml "
+
+      - name: "Run code analysis"
+        run: "vendor/bin/phpstan --no-ansi --no-interaction"
