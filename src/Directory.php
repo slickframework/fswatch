@@ -72,17 +72,19 @@ class Directory
     {
         $result = [];
         $path = $this->fileTools->normalizePath($path);
-        $files = scandir($path);
-        $files = $files !== false ? array_diff($files, ['.', '..']) : [];
+        $handle = opendir($path);
+        while ($handle && false !== ($file = readdir($handle))) {
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
 
-        foreach ($files as $file) {
             if (is_dir($path . $file) === true) {
                 $result[$file] = $this->map($path . $file);
                 continue;
             }
             $result[$file] = $this->fileTools->calculateSize($path . $file);
         }
-
+        unset($handle);
         return $result;
     }
 

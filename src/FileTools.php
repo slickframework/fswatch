@@ -45,22 +45,34 @@ final class FileTools
         $path = $this->normalizePath($path);
 
         if (is_dir($path)) {
-            $scannedFiles = scandir($path);
-            $files =$scannedFiles !== false ? array_diff($scannedFiles, ['.', '..']) : [];
-            foreach ($files as $file) {
-                if (is_dir($path . $file)) {
-                    $result += $this->calculateSize($path . $file);
-                    continue;
-                }
-                $result += intval(sprintf('%u', filesize($path . $file)));
-            }
-            return $result;
+            return $this->calculateDirectorySize($path);
         }
 
         if (is_file($path)) {
             $result += intval(sprintf('%u', filesize($path)));
         }
 
+        return $result;
+    }
+
+    private function calculateDirectorySize(string $path): int
+    {
+        $handle = opendir($path);
+        $result = 0;
+        while ($handle && ($file = readdir($handle)) !== false) {
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
+
+                $filePath = $path .  $file;
+            if (is_dir($filePath)) {
+                $result += $this->calculateSize($filePath);
+                continue;
+            }
+
+                $result += intval(sprintf('%u', filesize($filePath)));
+        }
+            unset($handle);
         return $result;
     }
 

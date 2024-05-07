@@ -81,7 +81,6 @@ class DirectoryTest extends TestCase
     {
         $dir = new Directory(dirname(__DIR__) . '/fixtures');
         $this->assertInstanceOf(Snapshot::class, $dir->snapshot());
-        print_r($dir->snapshot()->__serialize());
     }
 
     #[Test]
