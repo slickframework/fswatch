@@ -18,7 +18,7 @@ also applies the [semantic version 2.0.0](http://semver.org) specification.
 Via Composer
 
 ``` bash
-composer require slick/fschange
+composer require slick/fswatch
 ```
 
 ## Usage
